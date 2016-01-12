@@ -1,0 +1,18 @@
+<table>
+	<tr>
+		<th>Device name</th>
+		<th>State</th>
+	</tr>
+<% if @devices.first %>
+<% for device in @devices %>
+<tr>
+	<td><%= device.id %></td>
+	<td><%= device.state %></td>
+	<% if device.state %>
+	<td><%= link_to "turn off", device, :action => :state_change, :method => :post,:remote=>true %></td>
+	<% else %>
+	<td><%= link_to "turn on", device, :action => :state_change, :method => :post,:remote=>true %></td>
+	<% end %>
+</tr>
+<% end %>
+<% end %>
