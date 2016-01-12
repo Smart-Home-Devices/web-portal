@@ -2,7 +2,7 @@ class DevicesController < ApplicationController
 before_action :set_device, only: [:state_change]
 
 	def index
-		@devices = Device.all
+		@devices = Device.order("id asc").all
 	end
 
 	def state_change
