@@ -16,7 +16,16 @@
       <ul class="nav navbar-nav">
         <li><%= link_to "About",pages_about_path %></li>
         <li><%= link_to "Contact",pages_contact_path %></li>
-
+      </ul>
+        <ul class="nav navbar-nav navbar-right">
+        <% if family_signed_in? %>
+        <li class="dropdown"><%= link_to current_family.family_name.titleize, '', class: "dropdown-toggle","data-toggle": "dropdown","aria-haspopup": true,"aria-expanded": false %>
+            <ul class="dropdown-menu">
+              <li class="activity1"><%= link_to "Log out", destroy_family_session_path , method: :delete %></li>  
+            </ul>
+          </li>
+          <% end %>
+        </ul>
 	</div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

@@ -1,8 +1,9 @@
 class DevicesController < ApplicationController
+before_action :authenticate_family!
 before_action :set_device, only: [:state_change, :show]
 
 	def index
-		@devices = Device.order("id asc").all
+		@devices = current_family.devices.order("id asc").all
 	end
 
 	def state_change
@@ -15,10 +16,31 @@ before_action :set_device, only: [:state_change, :show]
 		redirect_to root_url
 	end
 
+	def new
+		@device = current_family.devices.new
+	end
+
 	def set_device
-		@device = Device.find(params[:id])
+		@device = current_family.devices.find(params[:id])
 	end
 
 	def show
 	end
+
+	def create
+		@device = current_family.devices.new(device_params)
+		respond_to do |format|
+			if @device.save
+				format.html { redirect_to @device, notice: 'Device was successfully added.' }
+        		format.json { render :show, status: :created, location: @device }
+			else
+        		format.html { render :new }
+       		    format.json { render json: @device.errors, status: :unprocessable_entity }
+      		end
+      	end
+    end
+
+	def device_params
+      params.require(:device).permit(:name, :state)
+    end
 end

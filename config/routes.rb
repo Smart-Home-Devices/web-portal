@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :families
   resources :devices
   post '/devices/:id' => 'devices#state_change'
   # The priority is based upon order of creation: first created -> highest priority.
