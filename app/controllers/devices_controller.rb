@@ -13,7 +13,7 @@ before_action :set_device, only: [:state_change, :show, :destroy]
 		else
 			@device.update(state: 1)
 		end
-		redirect_to root_url
+		redirect_to devices_path
 	end
 
 	def new
@@ -43,7 +43,7 @@ before_action :set_device, only: [:state_change, :show, :destroy]
     def destroy
     	@device.destroy
     	respond_to do |format|
-          format.html { redirect_to root_url, notice: 'Device was successfully removed.' }
+          format.html { redirect_to devices_path, notice: 'Device was successfully removed.' }
     	  format.json { head :no_content }
   	 	end
     end
