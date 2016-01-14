@@ -8,9 +8,14 @@
 <% if @devices.first %>
 <% for device in @devices %>
 <tr>
-	<td><%= device.name %></td>
-	<td><%= link_to "Details", device %></td>
-	<td><%= device.state %></td>
+	<!-- <td><%= device.name %></td> -->
+	<td><%= link_to device.name, device %></td>
+	<!-- <td><%= device.state %></td> -->
+	<% if device.state %>
+	<td> On </td>
+	<% else %>
+	<td> Off </td>
+	<%end%>
 	<% if device.state %>
 	<td><%= link_to "Turn off", device, :action => :state_change, :method => :post,:remote=>true, class: "btn btn-danger" %></td>
 	<% else %>

@@ -14,10 +14,9 @@
 ActiveRecord::Schema.define(version: 20160112165008) do
 
   create_table "devices", force: :cascade do |t|
-    t.string   "name"
-    t.boolean  "state",      default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.boolean  "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
