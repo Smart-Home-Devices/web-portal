@@ -14,11 +14,17 @@
 ActiveRecord::Schema.define(version: 20160114134747) do
 
   create_table "devices", force: :cascade do |t|
+<<<<<<< HEAD
     t.string   "name"
     t.boolean  "state",      default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "family_id"
+=======
+    t.boolean  "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+>>>>>>> f4cc04c25e732ba49b2e29275dc39031871799ad
   end
 
   create_table "families", force: :cascade do |t|

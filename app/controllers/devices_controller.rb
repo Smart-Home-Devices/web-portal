@@ -1,6 +1,6 @@
 class DevicesController < ApplicationController
 before_action :authenticate_family!
-before_action :set_device, only: [:state_change, :show]
+before_action :set_device, only: [:state_change, :show, :destroy]
 
 	def index
 		@devices = current_family.devices.order("id asc").all
@@ -38,6 +38,14 @@ before_action :set_device, only: [:state_change, :show]
        		    format.json { render json: @device.errors, status: :unprocessable_entity }
       		end
       	end
+    end
+
+    def destroy
+    	@device.destroy
+    	respond_to do |format|
+          format.html { redirect_to root_url, notice: 'Device was successfully removed.' }
+    	  format.json { head :no_content }
+  	 	end
     end
 
 	def device_params
