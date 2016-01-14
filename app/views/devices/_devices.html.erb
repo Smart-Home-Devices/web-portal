@@ -1,17 +1,20 @@
-<table>
+<table class="table table-hover table-condensed">
 	<tr>
 		<th>Device name</th>
+		<th></th>
 		<th>State</th>
+		<th>Control</th>
 	</tr>
 <% if @devices.first %>
 <% for device in @devices %>
 <tr>
-	<td><%= device.id %></td>
+	<td><%= device.name %></td>
+	<td><%= link_to "Details", device %></td>
 	<td><%= device.state %></td>
 	<% if device.state %>
-	<td><%= link_to "turn off", device, :action => :state_change, :method => :post,:remote=>true %></td>
+	<td><%= link_to "Turn off", device, :action => :state_change, :method => :post,:remote=>true, class: "btn btn-danger" %></td>
 	<% else %>
-	<td><%= link_to "turn on", device, :action => :state_change, :method => :post,:remote=>true %></td>
+	<td><%= link_to "Turn on", device, :action => :state_change, :method => :post,:remote=>true, class: "btn btn-primary" %></td>
 	<% end %>
 </tr>
 <% end %>

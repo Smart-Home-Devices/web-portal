@@ -1,7 +1,8 @@
 class CreateDevices < ActiveRecord::Migration
   def change
     create_table :devices do |t|
-      t.boolean :state
+      t.string :name
+      t.boolean :state, :default => 0
    
       t.timestamps null: false
     end

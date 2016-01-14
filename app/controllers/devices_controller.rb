@@ -1,5 +1,5 @@
 class DevicesController < ApplicationController
-before_action :set_device, only: [:state_change]
+before_action :set_device, only: [:state_change, :show]
 
 	def index
 		@devices = Device.order("id asc").all
@@ -8,9 +8,9 @@ before_action :set_device, only: [:state_change]
 	def state_change
 		# raise @device.inspect
 		if @device.state
-			@device.update(state: false)
+			@device.update(state: 0)
 		else
-			@device.update(state: true)
+			@device.update(state: 1)
 		end
 		redirect_to root_url
 	end
