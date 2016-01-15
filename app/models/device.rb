@@ -1,3 +1,4 @@
 class Device < ActiveRecord::Base
-	belongs_to :family
+	validates :name, presence: true
+	belongs_to :user
 end

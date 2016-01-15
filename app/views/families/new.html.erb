@@ -1,11 +1,12 @@
-<%= form_for(@device) do |f| %>
-  <% if @device.errors.any? %>
+<h1>New Family Registration</h1>
+<%= form_for(@family) do |f| %>
+  <% if @family.errors.any? %>
      <div id="error_explanation" class="alert alert-danger alert-dismissable">
       <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <h4><%= pluralize(@device.errors.count, "error") %> prohibited this review from being saved:</h4>
+      <h4><%= pluralize(@family.errors.count, "error") %> prohibited this review from being saved:</h4>
 
       <ul>
-      <% @device.errors.full_messages.each do |message| %>
+      <% @family.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -16,7 +17,10 @@
     <%= f.label :name %><br>
     <%= f.text_field :name , class: "form-control" %>
   </div>
-  <%= f.hidden_field :rpi_id, value: current_user.family.rpi_id %>
+  <div class="form-group">
+    <%= f.label :rpi_id, "Raspberry Pi ID" %><br>
+    <%= f.text_field :rpi_id , class: "form-control" %>
+  </div>
   <div class="actions">
     <%= f.submit class: "btn btn-primary"%>
   </div>

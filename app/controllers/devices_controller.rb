@@ -1,9 +1,9 @@
 class DevicesController < ApplicationController
-before_action :authenticate_family!
 before_action :set_device, only: [:state_change, :show, :destroy]
+before_action :check_user
 
 	def index
-		@devices = current_family.devices.order("id asc").all
+		@devices = current_user.devices.order("id asc").all
 	end
 
 	def state_change
@@ -17,18 +17,18 @@ before_action :set_device, only: [:state_change, :show, :destroy]
 	end
 
 	def new
-		@device = current_family.devices.new
+		@device = current_user.devices.new
 	end
 
 	def set_device
-		@device = current_family.devices.find(params[:id])
+		@device = current_user.devices.find(params[:id])
 	end
 
 	def show
 	end
 
 	def create
-		@device = current_family.devices.new(device_params)
+		@device = current_user.devices.new(device_params)
 		respond_to do |format|
 			if @device.save
 				format.html { redirect_to @device, notice: 'Device was successfully added.' }
@@ -49,6 +49,12 @@ before_action :set_device, only: [:state_change, :show, :destroy]
     end
 
 	def device_params
-      params.require(:device).permit(:name, :state)
+      params.require(:device).permit(:name, :state, :rpi_id)
+    end
+
+    def check_user
+    	unless user_signed_in?
+    		redirect_to url_for(action: 'welcome', controller: 'pages')
+    	end
     end
 end

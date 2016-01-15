@@ -18,10 +18,12 @@
         <li><%= link_to "Contact",pages_contact_path %></li>
       </ul>
         <ul class="nav navbar-nav navbar-right">
-        <% if family_signed_in? %>
-        <li><%= link_to current_family.family_name.titleize, '' %></li>
-              <li><%= link_to "Log out", destroy_family_session_path , method: :delete %></li>  
-            
+        <% if user_signed_in? %>
+        <li><%= link_to current_user.first_name.titleize+' '+current_user.last_name.titleize, current_user %></li>
+              <li><%= link_to "Log out", destroy_user_session_path , method: :delete %></li>
+        <% else %> 
+            <li><%= link_to "Log in", new_user_session_path , method: :create %></li>
+          <li><%= link_to "Get Started", new_family_path %></li>
           <% end %>
         </ul>
 	</div><!-- /.navbar-collapse -->

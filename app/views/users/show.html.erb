@@ -1,0 +1,50 @@
+<h1>
+<% if current_user == @user %>
+	Hello <%= current_user.first_name+' !' %>
+<% else %>
+<%= @user.first_name %>
+<% end %></h1>
+<% if current_user.admin? %>
+<%= link_to "Add New User",new_user_registration_path, class: "btn btn-primary" %>
+<% if @user != current_user %>
+<% if @user.admin? %>
+<%= link_to "Remove as Admin", url_for(action: 'change_admin', id: @user.id), data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>
+<% else %> 
+<%= link_to "Add as Admin",url_for(action: 'change_admin', id: @user.id), data: {confirm: "Are you sure?"}, class: "btn btn-primary" %>
+<% end %>
+<% end %>
+<% end %>
+<!--
+We will create a family tree using just CSS(3)
+The markup will be simple nested lists
+-->
+<div class="tree">
+	<ul>
+		<li>
+			<%= link_to @family.name, family_path %>
+			<ul>
+				<% for user in @users %>
+				<li><% if user.== current_user %>
+					<%= link_to 'You', user %>
+					<% else %>
+					<%= link_to user.first_name, user %>
+					<% end %>
+					<ul>
+						<% @devices = user.devices.all %>
+						<% for device in @devices %>
+						<li>
+							<%= link_to device.name, device %>
+						</li>
+						<% end %>
+					</ul>
+				</li>
+				<% end %>
+			</ul>
+		</li>
+	</ul>
+</div>
+<!-- <h2>Permissions</h2>
+<ul><% for device in @devices %>
+	<li><%= device.name %></li>
+	<% end %>
+</ul> -->

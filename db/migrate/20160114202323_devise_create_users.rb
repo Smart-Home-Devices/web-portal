@@ -1,10 +1,13 @@
-class DeviseCreateFamilies < ActiveRecord::Migration
+class DeviseCreateUsers < ActiveRecord::Migration
   def change
-    create_table(:families) do |t|
+    create_table(:users) do |t|
       ## Database authenticatable
-      t.string :family_name,        null: false, default: ""
+      t.string :first_name,         null: false, default: ""
+      t.string :last_name,          null: false, default: ""
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
+      t.integer :family_id
+      t.boolean :admin, default: false
 
       ## Recoverable
       t.string   :reset_password_token
@@ -35,9 +38,9 @@ class DeviseCreateFamilies < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :families, :email,                unique: true
-    add_index :families, :reset_password_token, unique: true
-    # add_index :families, :confirmation_token,   unique: true
-    # add_index :families, :unlock_token,         unique: true
+    add_index :users, :email,                unique: true
+    add_index :users, :reset_password_token, unique: true
+    # add_index :users, :confirmation_token,   unique: true
+    # add_index :users, :unlock_token,         unique: true
   end
 end

@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :families
+   devise_for :users, controllers: {
+        registrations: 'users/registrations'
+      }
+  resources :users, only: [:show]
+  get 'users/:id/change_admin' => 'users#change_admin'
+  resources :families
   resources :devices
   post '/devices/:id' => 'devices#state_change'
   # The priority is based upon order of creation: first created -> highest priority.
@@ -11,6 +16,8 @@ Rails.application.routes.draw do
   get 'pages/about'
 
   get 'pages/contact'
+
+  get 'pages/welcome'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

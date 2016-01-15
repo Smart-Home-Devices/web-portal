@@ -11,39 +11,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114134747) do
+ActiveRecord::Schema.define(version: 20160114205336) do
 
   create_table "devices", force: :cascade do |t|
-<<<<<<< HEAD
     t.string   "name"
     t.boolean  "state",      default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.integer  "family_id"
-=======
-    t.boolean  "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
->>>>>>> f4cc04c25e732ba49b2e29275dc39031871799ad
+    t.string   "user_id"
+    t.string   "rpi_id"
   end
 
   create_table "families", force: :cascade do |t|
-    t.string   "family_name",            default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "name"
+    t.string   "rpi_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "families", ["rpi_id"], name: "index_families_on_rpi_id", unique: true
+
+  create_table "users", force: :cascade do |t|
+    t.string   "first_name",             default: "",    null: false
+    t.string   "last_name",              default: "",    null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
+    t.integer  "family_id"
+    t.boolean  "admin",                  default: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
-  add_index "families", ["email"], name: "index_families_on_email", unique: true
-  add_index "families", ["reset_password_token"], name: "index_families_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
