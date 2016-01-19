@@ -22,7 +22,7 @@
         <li><%= link_to current_user.first_name.titleize+' '+current_user.last_name.titleize, current_user %></li>
               <li><%= link_to "Log out", destroy_user_session_path , method: :delete %></li>
         <% else %> 
-            <li><%= link_to "Log in", new_user_session_path , method: :create %></li>
+            <li><%= link_to "Log in", new_user_session_path , method: :get %></li>
           <li><%= link_to "Get Started", new_family_path %></li>
           <% end %>
         </ul>

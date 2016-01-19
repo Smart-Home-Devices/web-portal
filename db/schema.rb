@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114205336) do
+ActiveRecord::Schema.define(version: 20160119132202) do
 
   create_table "devices", force: :cascade do |t|
     t.string   "name"
     t.boolean  "state",      default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.integer  "family_id"
     t.string   "user_id"
     t.string   "rpi_id"
+    t.integer  "family_id"
   end
 
   create_table "families", force: :cascade do |t|
