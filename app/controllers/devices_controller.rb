@@ -3,8 +3,18 @@ before_action :set_device, only: [:state_change, :show, :destroy]
 before_action :check_user
 
 	def index
-		@devices = current_user.devices.order("id asc").all
-	end
+		@devices = current_user.family.devices.all
+		if !@devices.nil? && !current_user.admin?
+			array = Array.new
+			for device in @devices
+				device.user_id = device.user_id.split(',')
+				if device.user_id.include?(current_user.id.to_s)
+					array.push device
+				end
+			end
+			@devices = array
+		end
+	end		
 
 	def state_change
 		# raise @device.inspect
@@ -21,7 +31,7 @@ before_action :check_user
 	end
 
 	def set_device
-		@device = current_user.devices.find(params[:id])
+		@device = current_user.family.devices.find(params[:id])
 	end
 
 	def show
@@ -29,6 +39,7 @@ before_action :check_user
 
 	def create
 		@device = current_user.devices.new(device_params)
+		@device.family_id = current_user.family_id
 		respond_to do |format|
 			if @device.save
 				format.html { redirect_to @device, notice: 'Device was successfully added.' }
@@ -49,7 +60,7 @@ before_action :check_user
     end
 
 	def device_params
-      params.require(:device).permit(:name, :state, :rpi_id)
+      params.require(:device).permit(:name, :state, :rpi_id, :family_id)
     end
 
     def check_user

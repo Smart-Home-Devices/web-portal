@@ -1,4 +1,6 @@
-/*Now the CSS*/
+.tree{
+	height: 200px;
+}
 * {margin: 0; padding: 0;}
 
 .tree ul {

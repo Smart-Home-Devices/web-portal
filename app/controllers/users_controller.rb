@@ -7,10 +7,27 @@ def show
 	@devices = @user.devices.all
 end
 
-# def permissions
-# 	@user = User.find(params[:id])
-# 	@devices = Device.where(rpi_id: @user.family.rpi_id).order("created_at").all
-# end
+def permission
+	@user = User.find(params[:id])
+	@device = Device.find(params[:device])
+	array = @device.user_id.split(',')
+	unless array.include?(@user.id.to_s)
+		array.push @user.id
+		
+		array.compact!
+	    array=array.join(',')
+	    @device.update(user_id: array)
+	    respond_to do |format|
+	    	format.html{redirect_to @user, notice: "Permissions updated!"}
+	    end
+	else
+		respond_to do |format|
+	    	format.html{redirect_to @user, notice: "User already has permission."}
+	    end
+	end
+
+end
+
 def change_admin
 	@user = User.find(params[:id])
 	if @user.admin?

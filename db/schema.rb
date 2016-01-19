@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20160114205336) do
     t.boolean  "state",      default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "family_id"
     t.string   "user_id"
     t.string   "rpi_id"
   end

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       }
   resources :users, only: [:show]
   get 'users/:id/change_admin' => 'users#change_admin'
+  get 'users/:id/permission' => 'users#permission', as: :user_permission
   resources :families
   resources :devices
   post '/devices/:id' => 'devices#state_change'

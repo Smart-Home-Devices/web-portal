@@ -13,7 +13,7 @@
 
 .sidebar {
     position: fixed;
-    top: 51px;
+    top: 50px;
     bottom: 0;
     left: 0;
     z-index: 1000;
@@ -22,7 +22,12 @@
     overflow-x: hidden;
     overflow-y: auto;
     background-color: #f5f5f5;
-    border-right: 1px solid #eee;
+    border-right: 1px solid #D8D8D8;
+    -webkit-transition: top 0.35s;
+    -moz-transition: top 0.35s;
+    -o-transition: top 0.35s;
+    -ms-transition: top 0.35s;
+    transition: top 0.35s;
 }
 
 .row1{
@@ -31,10 +36,9 @@
 
 .main {
     padding: 20px 40px;
-    .header {
+    .page-header {
     	padding-bottom: 9px;
     	margin: 0 0 20px 0;
-    	border-bottom: 1px solid #eee;
 	}
 }
 .nav{
@@ -62,4 +66,11 @@
 			background-color: #428bca;
 		}
 	}
+}
+
+@media (max-width: 767px){
+    .main{
+        width: 90%;
+        left: 60px;
+    }
 }

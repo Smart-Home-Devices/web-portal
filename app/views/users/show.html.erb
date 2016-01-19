@@ -1,8 +1,8 @@
-<h1>
+<h1 class="page-header">
 <% if current_user == @user %>
 	Hello <%= current_user.first_name+' !' %>
 <% else %>
-<%= @user.first_name %>
+<%= @user.first_name+' '+@user.last_name %>
 <% end %></h1>
 <% if current_user.admin? %>
 <%= link_to "Add New User",new_user_registration_path, class: "btn btn-primary" %>
@@ -30,11 +30,14 @@ The markup will be simple nested lists
 					<%= link_to user.first_name, user %>
 					<% end %>
 					<ul>
-						<% @devices = user.devices.all %>
+						<% @devices = user.family.devices.all %>
 						<% for device in @devices %>
+						<% device.user_id = device.user_id.split(',') %>
+						<% if device.user_id.include?(user.id.to_s) || user.admin?%>
 						<li>
 							<%= link_to device.name, device %>
 						</li>
+						<% end %>
 						<% end %>
 					</ul>
 				</li>
@@ -43,8 +46,44 @@ The markup will be simple nested lists
 		</li>
 	</ul>
 </div>
-<!-- <h2>Permissions</h2>
-<ul><% for device in @devices %>
-	<li><%= device.name %></li>
+<% @devices = @user.family.devices.all %>
+<h2>Permissions</h2>
+
+<table class="table table-hover table-condensed">
+	<tr>
+		<th>#</th>
+		<th>Device name</th>
+		<th>State</th>
+		<th>Permission</th>
+		<% if current_user.admin? %>
+		<th></th>
+		<% end %>
+	</tr>
+	<% count = 0 %>
+<% for device in @devices %>
+<tr><% device.user_id = device.user_id.split(',') %>
+	<td><%= count+=1 %></td>
+	<td><%= device.name %></td>
+	<td><% if device.state %>
+	On
+	<% else %>
+	Off
+	<%end%></td>
+	<td><% if device.user_id.include?(@user.id.to_s) || @user.admin? %>
+		Yes
+		<% else %>
+		No
+		<% end %>
+	</td>
+	<% if current_user.admin? && !@user.admin?%>
+	<% if device.user_id.include?(@user.id.to_s) || @user.admin? %>
+		<td><%= link_to "Remove Permission",{:controller => "users",action: 'permission', id: @user.id, device: device.id},class: "btn btn-danger btn-block" %></td>
+		<% else %>
+		<td><%= link_to "Add Permission",{:controller => "users",action: 'permission', id: @user.id, device: device.id},class: "btn btn-primary btn-block" %></td>
+		<% end %>
+		<% else %>
+		<td></td>
 	<% end %>
-</ul> -->
+</tr>
+<% end %>
+</table>
