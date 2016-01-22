@@ -59,6 +59,24 @@ before_action :check_user
   	 	end
     end
 
+    def turn_on
+		@device = Device.find(params[:id])
+		@device.update(state: 1)
+		respond_to do |format|
+			format.html{redirect_to devices_path}
+			format.js
+		end
+	end
+
+	def turn_off
+		@device = Device.find(params[:id])
+		@device.update(state: 0)
+		respond_to do |format|
+			format.html{redirect_to devices_path}
+			format.js
+		end
+	end
+
 	def device_params
       params.require(:device).permit(:name, :state, :rpi_id, :family_id)
     end

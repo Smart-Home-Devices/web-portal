@@ -5,11 +5,13 @@
   <title>Smart Home</title>
   <%= favicon_link_tag %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  
   <%= csrf_meta_tags %>
 </head>
 <body>
 <%= render 'layouts/navbar' %>
+<div id="mic", data-target="#myModal", data-toggle="modal"><%= image_tag("mic.svg", size: '30x30', alt: "Voice")%></div>
+<%= render 'layouts/speech' %>
 <div class="container-fluid">
 	<%if params[:controller] == 'pages' %>
 	<div class= "row1">
@@ -40,5 +42,6 @@
 	</div>
 	<% end %>
 </div>
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </body>
 </html>

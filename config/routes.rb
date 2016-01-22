@@ -7,8 +7,11 @@ Rails.application.routes.draw do
   get 'users/:id/change_admin' => 'users#change_admin'
   get 'users/:id/permission' => 'users#permission', as: :user_permission
   resources :families
-  resources :devices
+  get '/devices/turn_on' => 'devices#turn_on'
+  get '/devices/turn_off' => 'devices#turn_off'
   post '/devices/:id' => 'devices#state_change'
+  resources :devices
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
