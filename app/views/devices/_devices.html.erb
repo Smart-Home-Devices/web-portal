@@ -1,4 +1,5 @@
-<% if @devices.first %>
+<% @devices = current_user.family.devices.all %>
+<% if @devices.present? %>
 <table class="table table-hover table-condensed">
 	<tr>
 		<th>#</th>

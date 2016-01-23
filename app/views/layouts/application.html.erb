@@ -5,13 +5,15 @@
   <title>Smart Home</title>
   <%= favicon_link_tag %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <%= render 'layouts/navbar' %>
-<div id="mic", data-target="#myModal", data-toggle="modal"><%= image_tag("mic.svg", size: '30x30', alt: "Voice")%></div>
+<% if user_signed_in? %>
+<div id="mic" data-target="#myModal" data-toggle="modal"><%= fa_icon "microphone", style: "font-size: 25px;"%></div>
 <%= render 'layouts/speech' %>
+<% end %>
 <div class="container-fluid">
 	<%if params[:controller] == 'pages' %>
 	<div class= "row1">
@@ -42,6 +44,101 @@
 	</div>
 	<% end %>
 </div>
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<script type="text/javascript">
+// Test browser support
+window.SpeechRecognition = window.SpeechRecognition  ||
+                              window.webkitSpeechRecognition ||
+                                 null;
+var results = [];
+if (window.SpeechRecognition === null) {
+  document.getElementById('ws-unsupported').classList.remove('hidden');
+  var div = document.getElementById('button-play-ws');
+  div.innerHTML = '<%= fa_icon "microphone-slash", style: "font-size: 25px;" %>';
+  var div2 = document.getElementById('mic');
+  div2.innerHTML = '<%= fa_icon "microphone-slash", style: "font-size: 25px;" %>';
+  div2.className += "disabled";
+  document.getElementById('button-play-ws').setAttribute('disabled', 'disabled');
+  document.getElementById('button-stop-ws').setAttribute('disabled', 'disabled');
+} 
+else {
+  var recognizer = new window.SpeechRecognition();
+  var transcription = document.getElementById('transcription');
+  var log = document.getElementById('log');
+  // Recogniser doesn't stop listening even if the user pauses
+  // recognizer.continuous = true;
+  // Start recognising
+  recognizer.onresult = function(event) {
+    transcription.textContent = '';
+    results.push(event.results);
+    results.reverse();
+    results.forEach(function(val,i){
+      var el = val[0][0].transcript.toLowerCase();
+      transcription.textContent = el;
+      if (el === "hello"){
+        log.innerHTML = "Hi there";
+      }
+      else if(el === "hi"){
+        log.innerHTML = "Hi there";
+      }
+      else if(el === "hi there"){
+        log.innerHTML = "Hi there";
+      }
+      else if(el === "hi simon"){
+        log.innerHTML = "Hi there";
+      }
+      else if(el === "hello simon"){
+        log.innerHTML = "Hi there";
+      }
+      else if(el === "turn on device 1"){
+        log.innerHTML = "Turning on device 1";
+        var id = 1;
+        $.get("/devices/turn_on",{"id":id});
+      }
+      else if(el === "switch on device 1"){
+        log.innerHTML = "Switch on device 1";
+        var id = 1;
+        $.get("/devices/turn_on",{"id":id});
+      }
+      else if(el === "how are you"){
+        log.innerHTML = "I am fine. How are you? Oh chuck it I don't care";
+      }
+      else if(el === "turn off device 1"){
+        log.innerHTML = "Turning off device 1";
+        var id = 1;
+        $.get("/devices/turn_off",{"id":id});
+      }
+      else if(el === "switch off device 1"){
+        log.innerHTML = "Switch off device 1";
+        var id = 1;
+        $.get("/devices/turn_off",{"id":id});
+      }
+      else{
+        log.innerHTML = "Sorry I didn't get you";
+      }
+    });
+    results = [];
+  };
+
+  // Listen for errors
+  recognizer.onerror = function(event) {
+    //log.innerHTML = 'Recognition error: ' + event.message + '<br />' + log.innerHTML;
+    console.log(event.message);
+  };
+  var play = document.getElementById('button-play-ws');
+  play.addEventListener('click', function() {
+    // Set if we need interim results
+    recognizer.interimResults = document.querySelector('input[name="recognition-type"][value="interim"]').checked;
+    recognizer.stop();
+    try {
+      transcription.textContent = 'Listening...';
+      log.textContent = 'What can I do for you?';
+      recognizer.start();
+    } catch(ex) {
+      console.log(event.message);
+    }
+  });
+}
+
+</script>
 </body>
 </html>

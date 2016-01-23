@@ -1,0 +1,29 @@
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+<h4 class="modal-title">Voice command</h4>
+      </div>
+      <div class="modal-body">
+<h2>Transcription</h2>
+<textarea id="transcription" readonly="readonly"></textarea>
+<span class="hidden">
+    <span>Results:</span>
+    <label><input type="radio" name="recognition-type" value="final" checked="checked" /> Final only</label>
+    <label><input type="radio" name="recognition-type" value="interim" /> Interim</label>
+</span>
+<h3>Simon Says</h3>
+<div id="log"></div>
+<div class="buttons-wrapper">
+  <button id="button-play-ws" class="button-demo"><%= fa_icon "microphone", style: "font-size: 25px;" %></button>
+</div>
+<span id="ws-unsupported" class="hidden">API not supported</span>
+</div>
+      
+    </div>
+
+  </div>
+</div>

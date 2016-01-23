@@ -63,8 +63,7 @@ before_action :check_user
 		@device = Device.find(params[:id])
 		@device.update(state: 1)
 		respond_to do |format|
-			format.html{redirect_to devices_path}
-			format.js
+			format.js{ render :action => "index" }
 		end
 	end
 
@@ -72,8 +71,7 @@ before_action :check_user
 		@device = Device.find(params[:id])
 		@device.update(state: 0)
 		respond_to do |format|
-			format.html{redirect_to devices_path}
-			format.js
+			format.js{ render :action => "index" }
 		end
 	end
 
