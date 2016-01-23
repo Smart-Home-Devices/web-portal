@@ -89,6 +89,12 @@ else {
       else if(el === "hello simon"){
         log.innerHTML = "Hi there";
       }
+      else if(el === "nothing"){
+        log.innerHTML = "As you wish";
+      }
+      else if(el === "how are you"){
+        log.innerHTML = "I am fine. How are you? Oh chuck it I don't care";
+      }
       else if(el === "turn on device 1"){
         log.innerHTML = "Turning on device 1";
         var id = 1;
@@ -99,9 +105,6 @@ else {
         var id = 1;
         $.get("/devices/turn_on",{"id":id});
       }
-      else if(el === "how are you"){
-        log.innerHTML = "I am fine. How are you? Oh chuck it I don't care";
-      }
       else if(el === "turn off device 1"){
         log.innerHTML = "Turning off device 1";
         var id = 1;
@@ -110,6 +113,46 @@ else {
       else if(el === "switch off device 1"){
         log.innerHTML = "Switch off device 1";
         var id = 1;
+        $.get("/devices/turn_off",{"id":id});
+      }
+      else if(el === "turn on device 2"){
+        log.innerHTML = "Turning on device 2";
+        var id = 2;
+        $.get("/devices/turn_on",{"id":id});
+      }
+      else if(el === "switch on device 2"){
+        log.innerHTML = "Switch on device 2";
+        var id = 2;
+        $.get("/devices/turn_on",{"id":id});
+      }
+      else if(el === "turn off device 2"){
+        log.innerHTML = "Turning off device 2";
+        var id = 2;
+        $.get("/devices/turn_off",{"id":id});
+      }
+      else if(el === "switch off device 2"){
+        log.innerHTML = "Switch off device 2";
+        var id = 2;
+        $.get("/devices/turn_off",{"id":id});
+      }
+      else if(el === "turn on device 3"){
+        log.innerHTML = "Turning on device 3";
+        var id = 3;
+        $.get("/devices/turn_on",{"id":id});
+      }
+      else if(el === "switch on device 3"){
+        log.innerHTML = "Switch on device 3";
+        var id = 3;
+        $.get("/devices/turn_on",{"id":id});
+      }
+      else if(el === "turn off device 3"){
+        log.innerHTML = "Turning off device 3";
+        var id = 3;
+        $.get("/devices/turn_off",{"id":id});
+      }
+      else if(el === "switch off device 3"){
+        log.innerHTML = "Switch off device 3";
+        var id = 3;
         $.get("/devices/turn_off",{"id":id});
       }
       else{
