@@ -46,7 +46,7 @@ The markup will be simple nested lists
 		</li>
 	</ul>
 </div>
-<% @devices = @user.family.devices.all %>
+<% @devices = @user.family.devices.order("id asc").all %>
 <h2>Permissions</h2>
 
 <table class="table table-hover table-condensed">
