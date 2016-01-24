@@ -12,7 +12,7 @@ before_action :check_user
 					array.push device
 				end
 			end
-			@devices = array
+			@devices = array.order("id asc")
 		end
 	end		
 
