@@ -3,7 +3,7 @@ before_action :set_device, only: [:state_change, :show, :destroy]
 before_action :check_user
 
 	def index
-		@devices = current_user.family.devices.all
+		@devices = current_user.family.devices.order("id asc").all
 		if !@devices.nil? && !current_user.admin?
 			array = Array.new
 			for device in @devices
