@@ -48,13 +48,15 @@
 <script type="text/javascript">
 if(gon.logged_in){
   var i,dev=new Array(),sen=new Array(),temp,humid;
-  gon.watch('devices',{interval: 1000},function(devices){
+  gon.watch('devices',{interval: 3000},function(devices){
+    dev=[];
     for(i=0;i<devices.length;i++){
       var d = {id:devices[i].id,name:devices[i].name,state:devices[i].state};
       dev.push(d);
     }
   });
-  gon.watch('sensors',{interval: 1000},function(sensors){
+  gon.watch('sensors',{interval: 3000},function(sensors){
+    sen=[];
     for(i=0;i<sensors.length;i++){
       var val = Math.round(sensors[i].value);
       if(sensors[i].name.toLowerCase() == "temperature"){
@@ -135,7 +137,7 @@ else {
         else{
           if(val.result.parameters.device){
             for(i=0;i<dev.length;i++) {
-              if(val.result.parameters.device  == dev[i].name.toLowerCase()){
+              if(dev[i].name.toLowerCase().search(val.result.parameters.device)!= -1){
                 var id = dev[i].id;
                 match++;
                 if(val.result.action == "turnon"){
@@ -219,7 +221,7 @@ else {
             log.innerHTML = messageSorry;
           }
         }
-      console.log(debugJSON);
+      // console.log(debugJSON);
     }
 
   // Listen for errors
