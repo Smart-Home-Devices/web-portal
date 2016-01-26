@@ -29,8 +29,8 @@ class ApplicationController < ActionController::Base
         devices = array.sort_by {|a| a.id}
       end
       sensors = current_user.family.sensors.all
-      gon.devices = devices
-      gon.sensors = sensors
+      gon.watch.devices = devices
+      gon.watch.sensors = sensors
     else
       gon.logged_in=0
     end

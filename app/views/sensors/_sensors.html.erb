@@ -27,7 +27,12 @@
     <div class="de">
         <div class="den">
         	<% if sensor.value ==1%>
-          <% flash[:error]="LPG leak detected "+Time.now.in_time_zone("Chennai").strftime("at %I:%M%p")+"!" %>
+          <% if sensor.name=="LPG Gas Sensor"
+              flash[:error]="LPG leak detected "+Time.now.in_time_zone("Chennai").strftime("at %I:%M%p")+"!"
+             else
+              flash[:error]="Something was burning at "+Time.now.in_time_zone("Chennai").strftime("at %I:%M%p")+"!"
+             end
+          %>
         	<div class="dene1">
           </div>
             <% else %>

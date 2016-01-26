@@ -3,7 +3,7 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Smart Home</title>
-  <%= include_gon %>
+  <%= Gon::Base.render_data %>
   <%= favicon_link_tag %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -47,7 +47,26 @@
 </div>
 <script type="text/javascript">
 if(gon.logged_in){
-    
+  var i,dev=new Array(),sen=new Array(),temp,humid;
+  gon.watch('devices',{interval: 1000},function(devices){
+    for(i=0;i<devices.length;i++){
+      var d = {id:devices[i].id,name:devices[i].name,state:devices[i].state};
+      dev.push(d);
+    }
+  });
+  gon.watch('sensors',{interval: 1000},function(sensors){
+    for(i=0;i<sensors.length;i++){
+      var val = Math.round(sensors[i].value);
+      if(sensors[i].name.toLowerCase() == "temperature"){
+        temp = val;
+      }
+      else if(sensors[i].name.toLowerCase() == "humidity"){
+        humid = val;
+      }
+      var s = {id:sensors[i].id,name:sensors[i].name,value:val};
+      sen.push(s);
+    }
+  });
    var accessToken = "66b0de1a2ecd46afb4f25abcb9cc278c",
       subscriptionKey = "82cb8764-2927-45c5-8043-a614e9cd8a19",
       baseUrl = "https://api.api.ai/v1/",
@@ -72,7 +91,7 @@ if (window.SpeechRecognition === null) {
   document.getElementById('button-play-ws').setAttribute('disabled', 'disabled');
   document.getElementById('button-stop-ws').setAttribute('disabled', 'disabled');
 } 
-else {
+else {  
   var recognizer = new window.SpeechRecognition();
   var transcription = document.getElementById('transcription');
   var log = document.getElementById('log');
@@ -115,21 +134,23 @@ else {
         }
         else{
           if(val.result.parameters.device){
-            for(i=0;i<gon.devices.length;i++) {
-              if(val.result.parameters.device.search(gon.devices[i].name.toLowerCase())){
-                var id = gon.devices[i].id;
+            for(i=0;i<dev.length;i++) {
+              if(val.result.parameters.device  == dev[i].name.toLowerCase()){
+                var id = dev[i].id;
                 match++;
                 if(val.result.action == "turnon"){
-                  if(gon.devices[i].state){
+                  if(dev[i].state){
                     log.innerHTML = "The device is already on.";
                   }
                   else{
-                    $.get("/devices/turn_on",{"id":id});  
+                    $.get("/devices/turn_on",{"id":id});
+                    log.innerHTML = spokenResponse;  
                   }
                 }
                 else if(val.result.action == "turnoff"){
-                  if(gon.devices[i].state){
-                    $.get("/devices/turn_on",{"id":id});
+                  if(dev[i].state){
+                    $.get("/devices/turn_off",{"id":id});
+                    log.innerHTML = spokenResponse;
                   }
                   else{
                      log.innerHTML = "The device is already off.";
@@ -141,17 +162,56 @@ else {
                 match++;
                 if(val.result.action == "turnon"){
                   $.get("/devices/turn_on_all");
+                  log.innerHTML = spokenResponse;
                 }
                 else if(val.result.action == "turnoff"){
                   $.get("/devices/turn_off_all");
+                  log.innerHTML = spokenResponse;
                 }
               }
             if(match==0){
               log.innerHTML = "Sorry but either you haven't added that device or you don't have permission to use it."
             }
           }
+          else if(val.result.action == "checksensor"){
+           for(i=0;i<sen.length;i++) {
+                if(val.result.parameters.sensor == "temperature" && sen[i].name.toLowerCase() == "temperature"){
+                  log.innerHTML = "The current room temperature is "+sen[i].value+"&deg;C";
+                  match++;
+                }
+                else if(val.result.parameters.sensor == "humidity" && sen[i].name.toLowerCase() == "humidity"){
+                  log.innerHTML = "The current humidity is "+sen[i].value+"%";
+                  match++;
+                }
+                else if(val.result.parameters.sensor == "lpg" && sen[i].name.toLowerCase() == "lpg gas sensor"){
+                  if(sen[i].value == 0){
+                    log.innerHTML = "Currently the sensor is not detecting any leak";  
+                  }
+                  else{
+                    log.innerHTML = "Alert! LPG gas leak detected.";  
+                  }
+                  match++;
+                }
+                else if(val.result.parameters.sensor == "co2" && sen[i].name.toLowerCase() == "co2 gas sensor"){
+                  if(sen[i].value == 0){
+                    log.innerHTML = "Currently the sensor is not detecting any leak";  
+                  }
+                  else{
+                    log.innerHTML = "Alert! Something is burning in the house.";  
+                  }
+                  match++;
+                }
+            }
+            if(val.result.parameters.sensor == "weather"){
+                log.innerHTML = "The current room temperature is "+temp+"&deg;C and humidity is "+humid+'%';
+                match++;
+              }
+            if(match==0){
+              log.innerHTML = "Sorry but you haven't added that sensor."
+            }
+          }
         }
-        if(match==0){
+        if(log.innerHTML == ''){
           if(val.result.action.search("smalltalk") != -1 || val.result.action.search("name") != -1 || val.result.action.search("calculator") != -1){
             log.innerHTML = spokenResponse;    
           }
