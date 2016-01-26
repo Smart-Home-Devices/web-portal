@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :families
   get '/devices/turn_on' => 'devices#turn_on'
   get '/devices/turn_off' => 'devices#turn_off'
+  get '/devices/turn_on_all' => 'devices#turn_on_all'
+  get '/devices/turn_off_all' => 'devices#turn_off_all'
   post '/devices/:id' => 'devices#state_change'
   resources :devices
   

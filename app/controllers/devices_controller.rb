@@ -67,9 +67,49 @@ before_action :check_user
 		end
 	end
 
+	def turn_on_all
+		@devices = current_user.family.devices.order("id asc").all
+		if !@devices.nil? && !current_user.admin?
+			array = Array.new
+			for device in @devices
+				device.user_id = device.user_id.split(',')
+				if device.user_id.include?(current_user.id.to_s)
+					array.push device
+				end
+			end
+			@devices = array.sort_by {|a| a.id}
+		end
+		for device in @devices
+			device.update(state: 1)
+		end
+		respond_to do |format|
+			format.js{ render :action => "index" }
+		end
+	end
+
 	def turn_off
 		@device = Device.find(params[:id])
 		@device.update(state: 0)
+		respond_to do |format|
+			format.js{ render :action => "index" }
+		end
+	end
+
+	def turn_off_all
+		@devices = current_user.family.devices.order("id asc").all
+		if !@devices.nil? && !current_user.admin?
+			array = Array.new
+			for device in @devices
+				device.user_id = device.user_id.split(',')
+				if device.user_id.include?(current_user.id.to_s)
+					array.push device
+				end
+			end
+			@devices = array.sort_by {|a| a.id}
+		end
+		for device in @devices
+			device.update(state: 0)
+		end
 		respond_to do |format|
 			format.js{ render :action => "index" }
 		end
