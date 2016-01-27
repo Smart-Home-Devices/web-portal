@@ -20,9 +20,9 @@ $(function(){
   }
   update1 = setTimeout(updateDevices, 5000);
 	$('#bs-example-navbar-collapse-1').on('show.bs.collapse',function(){
-		$('.sidebar').css({'top':'226px'});		
+		$('.sidebar').css({'top':'180px'});		
 	});
 	$('#bs-example-navbar-collapse-1').on('hide.bs.collapse',function(){
-		$('.sidebar').css({'top':'50px'});		
+		$('.sidebar').css({'top':'0px'});		
 	});
 });
