@@ -214,7 +214,7 @@ else {
           }
         }
         if(log.innerHTML == ''){
-          if(val.result.action.search("smalltalk") != -1 || val.result.action.search("name") != -1 || val.result.action.search("calculator") != -1){
+          if(val.result.action.search("smalltalk") != -1 || val.result.action.search("name") != -1 || val.result.action.search("calculator") != -1 || val.result.action.search("wisdom") != -1){
             log.innerHTML = spokenResponse;    
           }
           else{
@@ -222,6 +222,7 @@ else {
           }
         }
       // console.log(debugJSON);
+      document.getElementById('button-play-ws').style.color = "black";
     }
 
   // Listen for errors
@@ -229,9 +230,10 @@ else {
     //log.innerHTML = 'Recognition error: ' + event.message + '<br />' + log.innerHTML;
     transcription.textContent = '';
     log.innerHTML = messageCouldntHear;
+    document.getElementById('button-play-ws').style.color = "black";
   };
   var play = document.getElementById('button-play-ws');
-  play.addEventListener('click', function() {
+  play.addEventListener('click', function() {play.style.color = "red";
     // Set if we need interim results
     recognizer.interimResults = document.querySelector('input[name="recognition-type"][value="interim"]').checked;
     recognizer.stop();
@@ -242,9 +244,11 @@ else {
     } catch(ex) {
       log.innerHTML = messageCouldntHear;
       transcription.textContent = '';
+      play.style.color = "black";
     }
   });
   document.getElementById('mic').addEventListener('click', function() {
+      document.getElementById('button-play-ws').style.color="red";
       try {
       transcription.textContent = 'Listening...';
       log.textContent = 'What can I do for you?';
@@ -252,6 +256,7 @@ else {
     } catch(ex) {
       log.innerHTML = messageCouldntHear;
       transcription.textContent = '';
+      document.getElementById('button-play-ws').style.color="black";
     }
   });
 }

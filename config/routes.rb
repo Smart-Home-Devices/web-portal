@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get '/devices/turn_off_all' => 'devices#turn_off_all'
   post '/devices/:id' => 'devices#state_change'
   resources :devices
-  
+  get '/remote' => 'remote#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

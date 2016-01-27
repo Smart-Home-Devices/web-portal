@@ -1,10 +1,10 @@
 @import url(http://fonts.googleapis.com/css?family=Dosis:200,400,500,600);
-.container1 { width: 300px; margin: 10px auto 0; display: inline-block;}
+.container1 { width: 240px; margin: 10px auto 0; display: inline-block;}
 .de .den, .de .dene, .de .denem,.denem1,.dene1,.dene2, .de .deneme { position: absolute;  left: 50%; top: 50%; }
 .de {
     position: relative;
-    width: 240px;
-    height: 240px;
+    width: 220px;
+    height: 220px;
     border-radius: 100%;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     background-color: transparent;

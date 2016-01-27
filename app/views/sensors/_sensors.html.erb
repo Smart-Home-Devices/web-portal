@@ -1,42 +1,32 @@
+<h6>Last updated at <%= @sensors.first.updated_at.in_time_zone("Chennai").strftime(" %I:%M%p %-d %B %Y")%></h6>
 <% if @sensors.present? %>
-<table class="table table-hover table-condensed">
-	<tr>
-		<th>#</th>
-		<th>Sensor name</th>
-		<th>Value</th>
-		<th>State</th>
-	</tr>
-	<% count = 0 %>
-<% for sensor in @sensors %>
-<tr>
-	<td><%= count+=1 %></td>
-	<td><%= link_to sensor.name, sensor %></td>
-	<td><%= sensor.value %></td>
-	<% if sensor.state %>
-	<td> On </td>
-	<% else %>
-	<td> Off </td>
-	<%end%>
-	
-</tr>
-<% end %>
+
 <% for sensor in @sensors %>
 <% if sensor.name=="LPG Gas Sensor" || sensor.name=="CO2 Gas Sensor"%>
 <div class="container1">
+  <% if sensor.name=="CO2 Gas Sensor"%>
+  <h3>CO<sub>2</sub> Gas Sensor</h3>
+  <% else %>
 	<h3><%= sensor.name %></h3>
+  <% end %>
     <div class="de">
         <div class="den">
         	<% if sensor.value ==1%>
-          <% if sensor.name=="LPG Gas Sensor"
-              flash[:error]="LPG leak detected "+Time.now.in_time_zone("Chennai").strftime("at %I:%M%p")+"!"
-             else
-              flash[:error]="Something was burning at "+Time.now.in_time_zone("Chennai").strftime("at %I:%M%p")+"!"
-             end
-          %>
+          <% if sensor.name=="LPG Gas Sensor" %>
+             <% flash.discard(:error)
+                flash[:error]="LPG leak detected "+Time.now.in_time_zone("Chennai").strftime("at %I:%M%p")+"!"%>
+             <%else%>
+              <%flash.discard(:alert)
+                flash[:alert]="Something was burning at "+Time.now.in_time_zone("Chennai").strftime("at %I:%M%p")+"!"%>
+             <%end%>
         	<div class="dene1">
           </div>
             <% else %>
-            <% flash.discard(:error) %>	
+            <% if sensor.name=="LPG Gas Sensor" %>
+             <% flash.discard(:error)%>
+             <%else%>
+              <%flash.discard(:alert)%>
+             <%end%>
           <div class="dene2">
           </div>
           <% end %>
@@ -54,7 +44,7 @@
             <div class="denem">
               <div class="deneme">
                 <%=value[0].to_s%><span>.<%=value[1].to_s%></span><% if sensor.name == "Temperature"%>
-                <strong>&deg;</strong>
+                <strong>&deg;C</strong>
                 <% else %>
                 <strong>%</strong>
                 <% end %>

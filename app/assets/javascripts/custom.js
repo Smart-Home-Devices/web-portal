@@ -1,10 +1,10 @@
 function updateSensors(){
   $.getScript("/sensors.js");
-  setTimeout(updateSensors, 60000);
+  setTimeout(updateSensors, 5000);
 }
 function updateDevices(){
   $.getScript("/devices.js");
-  setTimeout(updateDevices, 60000);
+  setTimeout(updateDevices, 5000);
 }
 
 var update;
@@ -14,11 +14,11 @@ $(function(){
   if (update){
    clearTimeout(update);
   }
-  update = setTimeout(updateSensors, 60000);
+  update = setTimeout(updateSensors, 5000);
   if (update1){
    clearTimeout(update1);
   }
-  update1 = setTimeout(updateDevices, 60000);
+  update1 = setTimeout(updateDevices, 5000);
 	$('#bs-example-navbar-collapse-1').on('show.bs.collapse',function(){
 		$('.sidebar').css({'top':'226px'});		
 	});

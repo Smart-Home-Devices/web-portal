@@ -29,6 +29,17 @@ class ApplicationController < ActionController::Base
         devices = array.sort_by {|a| a.id}
       end
       sensors = current_user.family.sensors.all
+      for sensor in sensors
+        if sensor.name=="LPG Gas Sensor" && sensor.value==1
+          flash[:error]="LPG leak detected "+Time.now.in_time_zone("Chennai").strftime("at %I:%M%p")+"!"
+        elsif sensor.name =="CO2 Gas Sensor" && sensor.value==1
+          flash[:alert]="Something was burning at "+Time.now.in_time_zone("Chennai").strftime("at %I:%M%p")+"!"
+        elsif sensor.name=="LPG Gas Sensor" && sensor.value==0
+          flash.discard(:error)
+        elsif sensor.name =="CO2 Gas Sensor" && sensor.value==0
+          flash.discard(:alert)
+        end
+      end
       gon.watch.devices = devices
       gon.watch.sensors = sensors
     else
