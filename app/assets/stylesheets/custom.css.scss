@@ -12,7 +12,81 @@
 .navbar-inverse .navbar-brand{
 	color: white;
 }
+.inline{
+        li{
+            display: block;
+            width: 20%;
+            float: left;
+            text-align: center;
+        }
+}
+.welcome{
+    /*background: url('cover1.jpg') no-repeat center center #D8E1DE;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;*/
+    height: 300px;
+    width: 100%;
+    margin-bottom: 0;
+}
 
+.carousel-indicators{
+    position: relative;
+    top: 250px;
+    li{
+        border: 1px solid #2e6da4;
+    }
+    .active{
+        background: #337ab7;
+    }
+}
+.carousel-inner{
+    height: 278px;
+}
+.item{
+    
+    img{
+            display: block;
+        height: 224px !important;
+        position: relative;
+        width: 356px;
+        top: -270px;
+        left: 3px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .left{
+        top: -430px;
+        position: relative;
+        width: 200px;
+        left: -300px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .right{
+        top: -430px;
+        position: relative;
+        width: 200px;
+        left: 300px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+.all{
+    img{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .panel{
+        width: 400px;
+        margin: 20px auto 0 auto;
+        display: block;
+    }
+}
 .sidebar {
     position: fixed;
     top: 0;
@@ -87,6 +161,7 @@
     height: 5em;
     text-align: center;
     line-height: 5em;
+    overflow: hidden;
     resize: none;
 }
 
@@ -128,5 +203,8 @@
     .main{
         width: 90%;
         left: 60px;
+    }
+    #myCarousel{
+        display: none;
     }
 }

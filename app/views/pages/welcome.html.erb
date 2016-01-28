@@ -1,5 +1,44 @@
-<div class= "jumbotron">
+<div class= "jumbotron welcome">
+<div class="container" style="text-align: center;">
 <h1>Welcome to Smart Home</h1>
-<p>blah blah blah </p>
+<p>Giving control to your home in your hands</p>
 <%= link_to "Get started", new_family_path, class: "btn btn-primary" %>
 </div>
+</div><div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li data-target="#myCarousel" data-slide-to="3"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox"><%= image_tag("laptop.png",style:"margin-left: auto; margin-right:auto;display:block;") %>
+    <div class="item active">
+      <%= image_tag("resize.png",align: "center") %>
+      <div class="panel panel-default left">
+        <div class="panel-body">Control your devices from the dashboard with the click of a button.</div></div>
+    </div>
+ 
+    <div class="item">
+      <%= image_tag("sensors.png",align: "center") %>
+      <div class="panel panel-default right">
+        <div class="panel-body">Check your room conditions in real-time and get alerts in case of emergency.</div></div>
+    </div>
+
+    <div class="item">
+      <%= image_tag("users.png",align: "center") %>
+      <div class="panel panel-default left">
+        <div class="panel-body">As a guardian you can give access to certain devices selectively to other users.</div></div>
+    </div>
+
+    <div class="item">
+      <%= image_tag("simon.png",align: "center") %>
+      <div class="panel panel-default right">
+        <div class="panel-body">Simon, your personal assistant is always at your service.</div></div>
+    </div>
+  </div>
+  <div class="page-header"></div>
+<div class="all"><div class="panel panel-default right">
+        <div class="panel-body">Support over multiple devices.</div></div><%= image_tag('all-devices.png')%></div>
