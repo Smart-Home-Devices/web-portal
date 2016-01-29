@@ -1,4 +1,5 @@
-<h6>Last updated at <%= @sensors.first.updated_at.in_time_zone("Chennai").strftime(" %I:%M%p %-d %B %Y")%></h6>
+<% @sensors = current_user.family.sensors.order('id asc').all %>
+<!-- <h6>Last updated at <%= @sensors.first.updated_at.in_time_zone("Chennai").strftime(" %I:%M%p %-d %B %Y")%></h6> -->
 <% if @sensors.present? %>
 
 <% for sensor in @sensors %>

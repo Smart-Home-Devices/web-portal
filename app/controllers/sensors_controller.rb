@@ -2,7 +2,7 @@ class SensorsController < ApplicationController
 before_action :check_user
 
 def index
-	@sensors = current_user.family.sensors.all
+	@sensors = current_user.family.sensors.order('id asc').all
 end
 
 def check_user
