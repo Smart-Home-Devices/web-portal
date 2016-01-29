@@ -29,12 +29,20 @@
 	<td> Off </td>
 	<%end%>
 	<% if device.state %>
-	<td><%= link_to "Turn off", {:controller => 'devices',:action => 'state_change',:id => device.id}, remote: true, class: "btn btn-danger" %></td>
+	<td><%= link_to 'Turn off<span class="spinner"><i class="fa fa-refresh"></i></span>'.html_safe(), {:controller => 'devices',:action => 'state_change',:id => device.id}, remote: true, class: "btn btn-danger has-spinner" %></td>
 	<% else %>
-	<td><%= link_to "Turn on",{ :controller => 'devices', :action => 'state_change',:id => device.id}, :remote => true, class: "btn btn-primary" %></td>
+	<td><%= link_to 'Turn on<span class="spinner"><i class="fa fa-refresh"></i></span>'.html_safe(),{ :controller => 'devices', :action => 'state_change',:id => device.id}, :remote => true, class: "btn btn-primary has-spinner" %></td>
 	<% end %>
 </tr>
 <% end %>
 <% else %>
 No devices added yet!
 <% end %>
+<script type="text/javascript">
+$(function(){
+    $('.has-spinner').click(function() {
+        $(this).toggleClass('active');
+        $(this).toggleClass('disabled');
+    });
+});
+</script>

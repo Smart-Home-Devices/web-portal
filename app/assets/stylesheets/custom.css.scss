@@ -200,6 +200,50 @@
     }
 }
 
+.spinner {
+  display: inline-block;
+  opacity: 0;
+  width: 0;
+
+  -webkit-transition: opacity 0.25s, width 0.25s;
+  -moz-transition: opacity 0.25s, width 0.25s;
+  -o-transition: opacity 0.25s, width 0.25s;
+  transition: opacity 0.25s, width 0.25s;
+  -webkit-animation: rotate 1s infinite;
+  animation: rotate 1s infinite;
+}
+
+@-webkit-keyframes rotate{
+    from{ -webkit-transform: rotate(0deg);}
+    to{ -webkit-transform: rotate(360deg);}
+}
+@keyframes rotate{
+    from{ -moz-transform: rotate(0deg);
+          -o-transform: rotate(0deg);
+          -ms-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+    to{ -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+        }
+}
+.has-spinner{
+    width: 90px;
+}
+.has-spinner.active {
+  cursor:progress;
+}
+
+.has-spinner.active .spinner {
+  opacity: 1;
+  width: auto; /* This doesn't work, just fix for unkown width elements */
+}
+.has-spinner.btn.active .spinner {
+    width: 25px;
+}
+
 @media (max-width: 767px){
     .main{
         width: 90%;
