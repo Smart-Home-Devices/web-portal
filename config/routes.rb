@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get '/devices/turn_off' => 'devices#turn_off'
   get '/devices/turn_on_all' => 'devices#turn_on_all'
   get '/devices/turn_off_all' => 'devices#turn_off_all'
-  post '/devices/:id' => 'devices#state_change'
+  get '/devices/state_change' => 'devices#state_change'
   resources :devices
   get '/remote' => 'remote#index'
   # The priority is based upon order of creation: first created -> highest priority.

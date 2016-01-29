@@ -29,9 +29,9 @@
 	<td> Off </td>
 	<%end%>
 	<% if device.state %>
-	<td><%= link_to "Turn off", device, :action => :state_change, :method => :post,:remote=>true, class: "btn btn-danger" %></td>
+	<td><%= link_to "Turn off", {:controller => 'devices',:action => 'state_change',:id => device.id}, remote: true, class: "btn btn-danger" %></td>
 	<% else %>
-	<td><%= link_to "Turn on", device, :action => :state_change, :method => :post,:remote=>true, class: "btn btn-primary" %></td>
+	<td><%= link_to "Turn on",{ :controller => 'devices', :action => 'state_change',:id => device.id}, :remote => true, class: "btn btn-primary" %></td>
 	<% end %>
 </tr>
 <% end %>
