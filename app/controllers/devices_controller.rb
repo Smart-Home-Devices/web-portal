@@ -1,6 +1,7 @@
 class DevicesController < ApplicationController
 before_action :set_device, only: [:state_change, :show, :destroy]
 before_action :check_user
+before_action :check_admin, only: [:new, :create, :destroy]
 
 	def index
 		@devices = current_user.family.devices.order("id asc").all
@@ -124,4 +125,10 @@ before_action :check_user
     		redirect_to url_for(action: 'welcome', controller: 'pages')
     	end
     end
+
+    def check_admin
+    	unless current_user.admin?
+    		redirect_to devices_path, alert: "Only admins can do that."
+    	end
+    end		
 end

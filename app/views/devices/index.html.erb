@@ -1,7 +1,7 @@
 <h1 class="page-header">Dashboard</h1>
 
 <h2> Your devices </h2>
-<% if user_signed_in? %>
+<% if user_signed_in? && current_user.admin?%>
 <%= link_to "Add a device", new_device_path, class: "btn btn-primary" %>
 <% end %>
 <br><br>
