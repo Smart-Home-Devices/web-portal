@@ -208,4 +208,16 @@
     #myCarousel{
         display: none;
     }
+    .welcome{
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        display: table;
+        padding-top: 0;
+        .container{
+            display: table-cell;
+            vertical-align: middle;
+        }
+    }
+
 }
