@@ -6,10 +6,37 @@ function updateDevices(){
   $.getScript("/devices.js");
   setTimeout(updateDevices, 5000);
 }
+function check_connect(){
+  var online1 = navigator.onLine;
+  if(online == null){
+    online = online1;
+  }
+  // console.log(online);
+  // if (x){ console.log('online'); }
+  // else{ console.log('offline'); }
+  if (online){
+    if (!online1){
+      console.log('offline'); 
+      online = online1;
+      window.location.replace('http://localhost:3000');
+    }  
+  }
+  if (!online){
+    if (online1){
+      console.log('online'); 
+      online = online1;
+      window.location.replace('https://interiit.herokuapp.com');
+    }  
+  }    
+}
 
 var update;
 var update1;
+var online;
+
 $(function(){
+
+  // setInterval(check_connect,5000);
 
   if (update){
    clearTimeout(update);

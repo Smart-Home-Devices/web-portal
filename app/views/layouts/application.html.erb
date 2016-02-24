@@ -10,6 +10,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  
 <%= render 'layouts/navbar' %>
 <% if user_signed_in? %>
 <div id="mic" data-target="#myModal" data-toggle="modal"><%= fa_icon "microphone", style: "font-size: 25px;"%></div>
